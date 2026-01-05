@@ -6,7 +6,7 @@ public enum UserRole
     Customer
 }
 
-abstract class User
+public abstract class User
 {
     public string Username{get;}
     private string Password{get;}

@@ -24,5 +24,10 @@ public class Camera
     {
         StatusCamera = status;
     }
+
+    public string ToFileFormat()
+    {
+        return $"{Numar};{StatusCamera}";
+    }
     
 }

@@ -11,9 +11,13 @@ public enum StatusCamera
 
 public class Camera
 {
-    public int Numar { get; private set; }
-    public StatusCamera StatusCamera { get; private set; }
+    public int Numar { get; set; }
+    public StatusCamera StatusCamera { get; set; }
 
+    public Camera()
+    {
+        
+    }
     public Camera(int numar, StatusCamera statusInitial = StatusCamera.Libera)
     {
         Numar = numar;
@@ -24,10 +28,6 @@ public class Camera
     {
         StatusCamera = status;
     }
-
-    public string ToFileFormat()
-    {
-        return $"{Numar};{StatusCamera}";
-    }
+    
     
 }

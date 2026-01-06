@@ -66,9 +66,9 @@ public class AdministrareCamere
         }
     }
 
-  /*  public List<Camera> AfisareCamere()
+    public List<Camera> AfisareCamere()
     {
         return _camere;
-    }   */
+    }   
     
 }

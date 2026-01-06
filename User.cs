@@ -1,16 +1,18 @@
 using System.IO;
 using System.Text.Json;
-namespace ProiectPoo;
+using System.Text.Json.Serialization;
+
+namespace Hotel.Users.Model;
 
 [JsonPolymorphic(TypeDiscriminatorPropertyName = "Role")]
-[JsonDerivedType(typeof(Admin), "admin")]
-[JsonDerivedType(typeof(Customer), "customer")]
+[JsonDerivedType(typeof(Admin.Model.Admin), "admin")]
+[JsonDerivedType(typeof(Customer.Model.Customer), "customer")]
 
 
-abstract class User
+public abstract class User
 {
     public string Username{get;}
-    public string Password{get; private set}
+    public string Password{get; private set; }
 
     protected User(string username, string password)
     {

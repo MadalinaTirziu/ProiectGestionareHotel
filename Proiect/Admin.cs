@@ -1,7 +1,7 @@
 using Hotel.Room.Model;
 
 namespace Hotel.Admin.Model;
-using Hotel.User.Model;
+using Hotel.Users.Model;
 using Hotel.Room.Admin;
 
 public class Admin : User

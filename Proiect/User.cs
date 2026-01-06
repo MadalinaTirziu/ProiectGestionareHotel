@@ -1,4 +1,4 @@
-namespace Hotel.User.Model;
+namespace Hotel.Users.Model;
 
 public enum UserRole
 {

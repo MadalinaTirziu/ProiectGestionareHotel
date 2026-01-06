@@ -20,6 +20,7 @@ public partial class StartUpPage : Page
         SignInButton.Click += SignInButton_Click;
         SignUpButton.Click += SignUpButton_Click;
         HistoryButton.Click += HistoryButton_Click;
+        LogOutButton.Click += LogOutButton_Click;
     }
 
     private void SignInButton_Click(object sender, RoutedEventArgs e)
@@ -36,12 +37,18 @@ public partial class StartUpPage : Page
         signUpPage.SignUpSucceeded += SignUpPage_SignUpSucceeded;
         Session.CurrentFrame.Navigate(signUpPage);
     }
+
     private void HistoryButton_Click(object sender, RoutedEventArgs e)
     {
         HistoryPage historyPage = new HistoryPage();
         Session.CurrentFrame.Navigate(historyPage);
     }
 
+    private void LogOutButton_Click(object sender, RoutedEventArgs e)
+    {
+        Session.Logout();
+        _vm.Refresh();
+    }
     private void SignInPage_LoginSucceeded(object sender, EventArgs e)
     {
         _vm.Refresh(); 

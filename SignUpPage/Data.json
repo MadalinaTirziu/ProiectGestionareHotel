@@ -1,19 +1,16 @@
 [
   {
     "Role": "admin",
-    "Role": 0,
     "Username": "admin",
     "Password": "1234"
   },
   {
     "Role": "customer",
-    "Role": 1,
     "Username": "user",
     "Password": "12345"
   },
   {
     "Role": "customer",
-    "Role": 1,
     "Username": "utilizator",
     "Password": "1234"
   }

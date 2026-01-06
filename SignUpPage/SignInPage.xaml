@@ -8,6 +8,6 @@
         <TextBox Width="200" Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10"/>
         <TextBlock Text="Enter your password:" Margin="0,0,0,22"/>
         <TextBox Width="200" Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,30"/>
-        <Button Content="Submit" Command="{Binding SubmitCommand}" Width="100"/>
+        <Button Content="Sign In" Command="{Binding SubmitCommand}" Width="100"/>
     </StackPanel>
 </Page>

@@ -1,4 +1,5 @@
-﻿using Hotel.Users.Models;
+﻿using System.Text.Json.Serialization;
+using Hotel.Users.Models;
 namespace Hotel.Admins.Model;
 
 public class Admin : User 
@@ -7,6 +8,6 @@ public class Admin : User
     {
         
     }
-    
+    [JsonIgnore]
     public override UserRole Role => UserRole.Admin;
 }

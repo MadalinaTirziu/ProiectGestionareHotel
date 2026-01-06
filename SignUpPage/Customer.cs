@@ -1,4 +1,7 @@
 ﻿using Hotel.Users.Models;
+
+using System.Text.Json.Serialization;
+
 namespace Hotel.Customers.Model;
 
 public class Customer : User 
@@ -7,6 +10,6 @@ public class Customer : User
     {
         
     }
-    
+    [JsonIgnore]
     public override UserRole Role => UserRole.Customer;
 }

@@ -17,7 +17,7 @@ public abstract class User
         Username = username;
         Password = password;
     }
-    
+    [JsonIgnore]
     public abstract UserRole Role { get; }
 }
 

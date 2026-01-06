@@ -37,6 +37,13 @@ public partial class StartUpPageViewModel : INotifyPropertyChanged
         set { _userTextBoxVisibility = value; OnPropertyChanged(); } 
     }
     
+    private Visibility _UserMenuVisibility = Visibility.Collapsed;
+
+    public Visibility UserMenuVisibility
+    {
+        get => _UserMenuVisibility;
+        set { _UserMenuVisibility = value; OnPropertyChanged(); }
+    }
     
     public string CurrentUsername 
     {
@@ -51,12 +58,14 @@ public partial class StartUpPageViewModel : INotifyPropertyChanged
             SignInVisibility = Visibility.Collapsed;
             SignUpVisibility = Visibility.Collapsed;
             UserTextBoxVisibility = Visibility.Visible;
+            UserMenuVisibility = Visibility.Visible;
         }
         else
         {
             SignInVisibility = Visibility.Visible;
             SignUpVisibility = Visibility.Visible;
             UserTextBoxVisibility = Visibility.Collapsed;
+            UserMenuVisibility = Visibility.Collapsed;
         }
         
         OnPropertyChanged(nameof(CurrentUsername));

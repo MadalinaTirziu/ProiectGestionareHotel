@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using Hotel.SignIn;
 using Hotel.Security;
 using Hotel.SignUp;
+using Hotel.History;
 namespace Hotel;
 
 public partial class StartUpPage : Page
@@ -18,6 +19,7 @@ public partial class StartUpPage : Page
         DataContext = _vm; 
         SignInButton.Click += SignInButton_Click;
         SignUpButton.Click += SignUpButton_Click;
+        HistoryButton.Click += HistoryButton_Click;
     }
 
     private void SignInButton_Click(object sender, RoutedEventArgs e)
@@ -34,14 +36,16 @@ public partial class StartUpPage : Page
         signUpPage.SignUpSucceeded += SignUpPage_SignUpSucceeded;
         Session.CurrentFrame.Navigate(signUpPage);
     }
+    private void HistoryButton_Click(object sender, RoutedEventArgs e)
+    {
+        HistoryPage historyPage = new HistoryPage();
+        Session.CurrentFrame.Navigate(historyPage);
+    }
 
     private void SignInPage_LoginSucceeded(object sender, EventArgs e)
     {
-        _vm.Refresh(); // Update visibility bindings
+        _vm.Refresh(); 
         Session.CurrentFrame.Navigate(this);
-        
-       
-        
     }
 
     private void SignUpPage_SignUpSucceeded(object sender, EventArgs e)
@@ -49,4 +53,6 @@ public partial class StartUpPage : Page
         _vm.Refresh();
         Session.CurrentFrame.Navigate(this);
     }
+
+    
 }

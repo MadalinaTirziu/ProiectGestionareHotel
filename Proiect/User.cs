@@ -1,4 +1,4 @@
-namespace ProiectPoo;
+namespace Hotel.User.Model;
 
 public enum UserRole
 {
@@ -16,11 +16,5 @@ public abstract class User
         Username = username;
         Password = password;
     }
-
-    public bool CheckPassword(string input)
-    {
-        return Password == input;
-    }
-    
     public abstract UserRole Role { get; }
 }

@@ -1,4 +1,5 @@
-namespace ProiectPoo;
+namespace Hotel.Admin.Model;
+using Hotel.User.Model;
 
 public class Admin : User 
 {

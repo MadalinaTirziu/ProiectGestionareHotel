@@ -1,4 +1,7 @@
-namespace ProiectPoo;
+using System.Collections.Immutable;
+using Hotel.Room.Model;
+using Hotel.Room.Files;
+namespace Hotel.Room.Admin;
 
 public class AdministrareCamere
 {
@@ -63,9 +66,9 @@ public class AdministrareCamere
         }
     }
 
-    public List<Camera> AfisareCamere()
+  /*  public List<Camera> AfisareCamere()
     {
         return _camere;
-    }
+    }   */
     
 }

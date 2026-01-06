@@ -1,10 +1,10 @@
-namespace ProiectPoo;
+namespace Hotel.Room.Model;
 
 public enum StatusCamera
 {
     Libera,
     Ocupata,
-    InCuratienie,
+    In_Curatenie,
     Indisponibila
 
 }

@@ -1,19 +1,29 @@
-namespace ProiectPoo;
+using System.IO;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using Hotel.Room.Model;
+namespace Hotel.Room.Files;
 
 public class CameraFisier
 {
-    private readonly string _caleFisier = "camere.txt";
+    private readonly string _caleFisier = "C:\\Users\\Madalina\\OneDrive\\Desktop\\c#\\Proiect\\Proiect\\camere.json";
+
+    private readonly JsonSerializerOptions _options = new()
+    {
+        WriteIndented = true,
+        Converters = { new JsonStringEnumConverter() }
+    };
 
     public void SalveazaCamere(List<Camera> camere)
     {
         try
         {
-            var linii = camere.Select(c => c.ToFileFormat());
-            File.WriteAllLines(_caleFisier, linii);
+            string jsonString = JsonSerializer.Serialize(camere, _options);
+            File.WriteAllText(_caleFisier, jsonString);
         }
-        catch (IOException ex)
+        catch (IOException e)
         {
-            Console.WriteLine($"Eroare la scrierea in fisier:  {ex.Message}");
+            Console.WriteLine($"Eroare la salvarea JSON: {e.Message}");
         }
     }
 
@@ -23,20 +33,13 @@ public class CameraFisier
             return new List<Camera>();
         try
         {
-            var linii = File.ReadAllLines(_caleFisier);
-            return linii.Select(l => ParseCamera(l)).ToList();
-
+            string jsonString = File.ReadAllText(_caleFisier);
+            return JsonSerializer.Deserialize<List<Camera>>(jsonString, _options);
         }
-        catch (Exception e)
+        catch (Exception ex)
         {
-            Console.WriteLine(e);
-            throw;
+            Console.WriteLine($"Eroare la incarcarea JSON: {ex.Message}");
+            return new List<Camera>();
         }
-    }
-
-    private Camera ParseCamera(string linie)
-    {
-        var parti = linie.Split(';');
-        return new Camera(int.Parse(parti[0]), (StatusCamera)Enum.Parse(typeof(StatusCamera), parti[1]));
     }
 }

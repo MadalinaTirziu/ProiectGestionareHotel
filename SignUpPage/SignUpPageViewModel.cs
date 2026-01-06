@@ -1,127 +1,110 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel;
 using System.ComponentModel;
 using System.IO;
 using System.Text.Json;
 using System.Windows;
 using System.Windows.Input;
-using WpfApp2.Model;
-namespace WpfApp2.ViewModel;
+using Hotel.Security;
+using Hotel.Users.Models;
+using Hotel.Customers.Model;
+namespace Hotel.SignUp.ViewModel;
 
-    public class SignUpPageViewModel : INotifyPropertyChanged
+public class SignUpPageViewModel : INotifyPropertyChanged
+{
+    public event EventHandler SignUpSucceeded;
+    public event PropertyChangedEventHandler PropertyChanged;
+        
+    protected void OnPropertyChanged(string propertyName)
     {
-        
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void OnPropertyChanged(string propertyName)
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+    private string _username;
+    public string Username
+    {
+        get { return _username; }
+        set { _username = value; OnPropertyChanged(nameof(Username)); }
+    }
+    private string _password;
+    public string Password
+    {
+        get { return _password; }
+        set { _password = value; OnPropertyChanged(nameof(Password)); }
+    }
+    private User _currentUser;
+    public User CurrentUser
+    {
+        get => _currentUser;
+        private set
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        
-        private string _userName;
-        public string UserName
-        {
-            get => _userName;
-            set
-            {
-                if (_userName != value)
-                {
-                    _userName = value;
-                    OnPropertyChanged(nameof(UserName));
-                }
-            }
-        }
-        private string _password;
-        public string Password
-        {
-            get => _password;
-            set
-            {
-                if (_password != value)
-                {
-                    _password = value;
-                    OnPropertyChanged(nameof(Password));
-                }
-            }
-        }
-        private User _currentUser;
-        public User CurrentUser
-        {
-            get => _currentUser;
-            private set
-            {
-                _currentUser = value;
-                OnPropertyChanged(nameof(CurrentUser));
-            }
-        }
-
-        
-        public ICommand SubmitCommand { get; }
-
-        
-        public SignUpPageViewModel()
-        {
-            SubmitCommand = new RelayCommand(Submit); 
-        }
-
-        
-        private readonly string _jsonPath = "Data.json";
-        private void Submit(object parameter)
-        {
-            try
-            {
-                
-                if (!File.Exists(_jsonPath))
-                {
-                    MessageBox.Show("Users file not found.");
-                    return;
-                }
-
-                string json = File.ReadAllText(_jsonPath);
-
-                
-                List<User> users = JsonSerializer.Deserialize<List<User>>(json);
-
-                
-                User matchedUser= users.Find(u =>
-                    u.Username.Equals(UserName, StringComparison.Ordinal) &&
-                    u.Password.Equals(Password, StringComparison.Ordinal));;
-
-                if (matchedUser != null)
-                {
-                    CurrentUser = matchedUser;
-                    MessageBox.Show($"Successfully logged in as {CurrentUser.Username} as {CurrentUser.Status}.");
-                }
-                else
-                {
-                    MessageBox.Show("Incorrect username or password.");
-                    
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error reading users: " + ex.Message);
-            }
+            _currentUser = value;
+            OnPropertyChanged(nameof(CurrentUser));
         }
     }
+    public ICommand SignUpCommand { get; set; }
 
-    
-    public class RelayCommand : ICommand
+    public SignUpPageViewModel()
     {
-        private readonly Action<object> _execute;
-
-        public RelayCommand(Action<object> execute)
+        SignUpCommand = new RelayCommand(Submit);
+    }
+    private readonly string _jsonPath = "Data.json";
+    private void Submit(object parameter)
+    {
+        try
         {
-            _execute = execute;
+            if (!File.Exists(_jsonPath))
+            {
+                MessageBox.Show("Users file not found.");
+                return;
+            }
+            string json=File.ReadAllText(_jsonPath);
+            List<User> users = JsonSerializer.Deserialize<List<User>>(json);
+            User matchedUser = users.FirstOrDefault(u => u.Username == this.Username);
+            if (matchedUser == null)
+            {
+                CurrentUser = new Customer(Username, Password);
+                users.Add(CurrentUser);
+                
+                string updatedJson = JsonSerializer.Serialize(users, new JsonSerializerOptions { WriteIndented = true });
+                File.WriteAllText(_jsonPath, updatedJson);
+                
+                Session.Login(CurrentUser);
+                SignUpSucceeded?.Invoke(this, EventArgs.Empty);
+                MessageBox.Show($"User {CurrentUser.Username} was successfully created.");
+            }
+            else
+            {
+                MessageBox.Show($"User {matchedUser.Username} already exists.");
+            }
         }
-
-        public event EventHandler CanExecuteChanged;
-
-        public bool CanExecute(object parameter) => true;
-
-        public void Execute(object parameter)
+        catch (Exception ex)
         {
-            _execute(parameter);
+            Console.WriteLine(ex);
+            throw;
         }
     }
+}
+
+
+
+
+
+
+
+public class RelayCommand : ICommand
+{
+    private readonly Action<object> _execute;
+
+    public RelayCommand(Action<object> execute)
+    {
+        _execute = execute;
+    }
+
+    public event EventHandler CanExecuteChanged;
+
+    public bool CanExecute(object parameter) => true;
+
+    public void Execute(object parameter)
+    {
+        _execute(parameter);
+    }
+}

@@ -3,6 +3,11 @@ namespace Hotel.Customers.Model;
 
 public class Customer : User 
 {
+
+    public Customer()
+    {
+        
+    }
     public Customer(string username, string password) : base(username, password)
     {
         

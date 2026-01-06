@@ -11,6 +11,11 @@ public abstract class User
     public string Username{get;}
     private string Password{get;}
 
+    protected User()
+    {
+        
+    }
+
     protected User(string username, string password)
     {
         Username = username;

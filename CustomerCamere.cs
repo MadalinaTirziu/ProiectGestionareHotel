@@ -27,15 +27,15 @@ public class CustomerCamere
 
         if (camereLibere.Count == 0)
         {
-            Console.WriteLine("Nu există camere disponibile.");
+            MessageBox.Show("Nu există camere disponibile.");
             return;
         }
 
-        Console.WriteLine("Camere disponibile:\n");
+        MessageBox.Show("Camere disponibile:\n");
 
         foreach (Camera c in camereLibere)
         {
-            Console.WriteLine($"• Camera {c.Numar}");
+            MessageBox.Show($"• Camera {c.Numar}");
         }
     }
 }

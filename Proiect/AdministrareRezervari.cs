@@ -1,3 +1,4 @@
+using Hotel.Customer.Services;
 using Hotel.Room.Admin;
 using Hotel.Room.Model;
 
@@ -5,7 +6,7 @@ namespace Hotel.Reservation.Admin;
 using Hotel.Reservation.Model;
 using Hotel.Reservation.Files;
 
-public class AdministrareRezervari
+public class AdministrareRezervari : ICustomerService
 {
     private List<Rezervare> _rezervari;
     private readonly RezervareFisier _fisier;
@@ -118,5 +119,15 @@ public class AdministrareRezervari
             }
             _fisier.SalveazaRezervari(_rezervari);
         }
+    }
+
+    public Camera CautaCameraDupaNumar(int numar)
+    {
+        return _adminCamere.AfisareCamere().FirstOrDefault(c => c.Numar == numar);
+    }
+
+    public List<Camera> CautaCameraDupaStatus(StatusCamera status)
+    {
+        return _adminCamere.AfisareCamere().Where(c => c.StatusCamera == status).ToList();
     }
 }

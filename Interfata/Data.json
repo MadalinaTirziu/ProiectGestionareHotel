@@ -1,0 +1,22 @@
+[
+  {
+    "Role": "admin",
+    "Username": "admin",
+    "Password": "1234"
+  },
+  {
+    "Role": "customer",
+    "Username": "user",
+    "Password": "12345"
+  },
+  {
+    "Role": "customer",
+    "Username": "utilizator",
+    "Password": "1234"
+  },
+  {
+    "Role": "customer",
+    "Username": "Mada",
+    "Password": "1"
+  }
+]

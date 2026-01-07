@@ -1,0 +1,32 @@
+﻿[
+  {
+    "CameraRezervata": {
+      "Numar": 102,
+      "StatusCamera": "Ocupata"
+    },
+    "PersoanaRezervare": {
+      "Role": "customer",
+      "Username": "Mada",
+      "Password": "1"
+    },
+    "DataSosire": "2026-01-07",
+    "DataPlecare": "2026-01-09",
+    "NumarPersoane": 2,
+    "StatusRezervare": "Finalizata"
+  },
+  {
+    "CameraRezervata": {
+      "Numar": 103,
+      "StatusCamera": "Ocupata"
+    },
+    "PersoanaRezervare": {
+      "Role": "customer",
+      "Username": "Mada",
+      "Password": "1"
+    },
+    "DataSosire": "2026-01-12",
+    "DataPlecare": "2026-01-14",
+    "NumarPersoane": 2,
+    "StatusRezervare": "Activa"
+  }
+]

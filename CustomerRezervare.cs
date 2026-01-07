@@ -3,42 +3,45 @@ using Hotel.Reservation.Admin;
 using Hotel.Reservation.Model;
 using System.Collections.Generic;
 using Hotel.Room.Model;
-
+using Hotel.Customer.Services;
 namespace Hotel.Room.Customer
 {
     public class CustomerRezervare
     {
         private Hotel.Customer.Model.Customer _customer;
-        private AdministrareRezervari _adminRezervari;
+        private readonly ICustomerService _service;
 
-        public CustomerRezervare(Hotel.Customer.Model.Customer customer, AdministrareRezervari adminRezervari)
+        public CustomerRezervare(Hotel.Customer.Model.Customer customer,  ICustomerService service)
         {
             _customer = customer;
-            _adminRezervari = adminRezervari;
+            _service = service;
         }
 
         public void RezervaCamera(Camera camera, DateOnly dataSosire, DateOnly dataPlecare, int numarPersoane)
         {
             Rezervare rezervare = new Rezervare(camera, _customer, dataSosire, dataPlecare, numarPersoane);
 
-            _adminRezervari.AdaugaRezervare(rezervare);
+            _service.AdaugaRezervare(rezervare);
         }
         
         public void AnuleazaRezervare(Rezervare rezervare)
         {
-            _adminRezervari.ModificaStatus(rezervare, StatusRezervare.Anulata);
+            _service.AnulareRezervare(rezervare);
         }
 
         public List<Rezervare> RezervariActive()
         {
             List<Rezervare> rezultat = new List<Rezervare>();
 
-            foreach (Rezervare r in _adminRezervari.AfisareRezervari())
+            if (_service is AdministrareRezervari admin)
             {
-                if (r.PersoanaRezervare == _customer &&
-                    r.StatusRezervare == StatusRezervare.Activa)
+                foreach (Rezervare r in admin.AfisareRezervari())
                 {
-                    rezultat.Add(r);
+                    if (r.PersoanaRezervare == _customer &&
+                        r.StatusRezervare == StatusRezervare.Activa)
+                    {
+                        rezultat.Add(r);
+                    }
                 }
             }
 
@@ -49,12 +52,14 @@ namespace Hotel.Room.Customer
         {
             List<Rezervare> rezultat = new List<Rezervare>();
 
-            foreach (Rezervare r in _adminRezervari.AfisareRezervari())
+            if (_service is AdministrareRezervari admin)
             {
-                if (r.PersoanaRezervare == _customer &&
-                    r.StatusRezervare == StatusRezervare.Finalizata)
+                foreach (Rezervare r in admin.AfisareRezervari())
                 {
-                    rezultat.Add(r);
+                    if (r.PersoanaRezervare == _customer && r.StatusRezervare == StatusRezervare.Finalizata)
+                    {
+                        rezultat.Add(r);
+                    }
                 }
             }
 

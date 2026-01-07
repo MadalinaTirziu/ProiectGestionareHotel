@@ -1,41 +1,41 @@
 using Hotel.Room.Model;
 using System.Windows;
 namespace Hotel.Room.Customer;
-
+using Hotel.Customer.Services;
 public class CustomerCamere
 {
-    private List<Camera> _camere;
+    private readonly ICustomerService _service;
 
-    public CustomerCamere(List<Camera> camere)
+    public CustomerCamere(ICustomerService service)
     {
-        _camere = camere;
+        _service = service;
+    }
+
+    public Camera CautaDupaNumar(int numar)
+    {
+        return _service.CautaCameraDupaNumar(numar);
+    }
+
+    public List<Camera> CautaDupaStatus(StatusCamera status)
+    {
+        return _service.CautaCameraDupaStatus(status);
     }
 
     public void AfiseazaCamereLibere()
     {
-        List<Camera> camereLibere = new List<Camera>();
-        
-        foreach (Camera camera in _camere)
-        {
-            if (camera.StatusCamera == StatusCamera.Libera)
-            {
-                camereLibere.Add(camera);
-            }
-        }
+        List<Camera> camereLibere = _service.CautaCameraDupaStatus(StatusCamera.Libera);
 
         if (camereLibere.Count == 0)
         {
-            MessageBox.Show("Nu există camere disponibile.");
+            Console.WriteLine("Nu există camere disponibile.");
             return;
         }
 
-        string mesaj = "Camere disponibile:\n\n";
+        Console.WriteLine("Camere disponibile:\n");
 
-        foreach (Camera camera in camereLibere)
+        foreach (Camera c in camereLibere)
         {
-            mesaj += $"• Camera {camera.Numar}\n";
+            Console.WriteLine($"• Camera {c.Numar}");
         }
-
-        MessageBox.Show(mesaj, "Camere libere");
     }
 }

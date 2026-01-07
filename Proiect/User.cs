@@ -1,0 +1,25 @@
+namespace Hotel.Users.Model;
+
+public enum UserRole
+{
+    Admin,
+    Customer
+}
+
+public abstract class User
+{
+    public string Username{get;}
+    private string Password{get;}
+
+    protected User()
+    {
+        
+    }
+
+    protected User(string username, string password)
+    {
+        Username = username;
+        Password = password;
+    }
+    public abstract UserRole Role { get; }
+}

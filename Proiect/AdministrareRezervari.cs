@@ -130,4 +130,9 @@ public class AdministrareRezervari : ICustomerService
     {
         return _adminCamere.AfisareCamere().Where(c => c.StatusCamera == status).ToList();
     }
+
+    public void AnulareRezervare(Rezervare rez)
+    {
+        ModificaStatus(rez, StatusRezervare.Anulata);
+    }
 }

@@ -8,4 +8,5 @@ public interface ICustomerService
     Camera CautaCameraDupaNumar(int numar);
     List<Camera> CautaCameraDupaStatus(StatusCamera status);
     void AdaugaRezervare(Rezervare rez);
+    void AnulareRezervare(Rezervare rez);
 }

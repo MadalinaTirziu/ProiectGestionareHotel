@@ -8,7 +8,7 @@ public enum UserRole
 
 public abstract class User
 {
-    public string Username{get;}
+    public string Username{get; set; }
     private string Password{get;}
 
     protected User()

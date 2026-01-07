@@ -1,3 +1,4 @@
+using Hotel.Room.Admin;
 using Hotel.Room.Model;
 
 namespace Hotel.Reservation.Admin;
@@ -8,10 +9,12 @@ public class AdministrareRezervari
 {
     private List<Rezervare> _rezervari;
     private readonly RezervareFisier _fisier;
+    private readonly AdministrareCamere _adminCamere;
 
-    public AdministrareRezervari(RezervareFisier fisier)
+    public AdministrareRezervari(RezervareFisier fisier,  AdministrareCamere adminCamere)
     {
         _fisier = fisier;
+        _adminCamere = adminCamere;
         _rezervari = _fisier.IncarcaRezervari();
         ActualizareStatusRezervare();
     }
@@ -31,13 +34,30 @@ public class AdministrareRezervari
 
     public void AdaugaRezervare(Rezervare noua)
     {
-        if (VerificaDisponibilitate(noua.CameraRezervata.Numar, noua.DataSosire, noua.DataPlecare))
+        var cameraReala = _adminCamere.AfisareCamere().FirstOrDefault(c => c.Numar == noua.CameraRezervata.Numar);
+        if (cameraReala == null)
         {
+            Console.WriteLine("Eroare: Camera nu există!");
+            return;
+        }
+
+        if (cameraReala.StatusCamera != StatusCamera.Libera)
+        {
+            Console.WriteLine($"Eroare: Camera {cameraReala.Numar} este {cameraReala.StatusCamera}!");
+            return; 
+        }
+
+        if (VerificaDisponibilitate(cameraReala.Numar, noua.DataSosire, noua.DataPlecare))
+        {
+            cameraReala.StatusCamera = StatusCamera.Ocupata; 
+            noua.CameraRezervata = cameraReala; 
             _rezervari.Add(noua);
             _fisier.SalveazaRezervari(_rezervari);
+            _adminCamere.SetareStatusCamera(cameraReala.Numar, StatusCamera.Ocupata);
+            Console.WriteLine("Rezervare salvată cu succes!");
         }
         else 
-            Console.WriteLine("Camera e ocupata!");
+            Console.WriteLine("Camera este deja rezervată în acea perioadă!");
     }
 
     public void ActualizareStatusRezervare()
@@ -84,7 +104,6 @@ public class AdministrareRezervari
                 break;
             }
         }
-
         if (rezervareGasita != null)
         {
             rezervareGasita.ModificareStatus(statusNou);

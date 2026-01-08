@@ -8,9 +8,9 @@ public class AdministrareCamere
     private List<Camera> _camere;
     private readonly CameraFisier _fisier;
 
-    public AdministrareCamere(CameraFisier fisier)
+    public AdministrareCamere()
     {
-        _fisier = fisier;
+        _fisier = new CameraFisier();
         _camere = _fisier.IncarcaCamere();
     }
 

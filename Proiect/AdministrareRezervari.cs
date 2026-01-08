@@ -12,10 +12,10 @@ public class AdministrareRezervari : ICustomerService
     private readonly RezervareFisier _fisier;
     private readonly AdministrareCamere _adminCamere;
 
-    public AdministrareRezervari(RezervareFisier fisier,  AdministrareCamere adminCamere)
+    public AdministrareRezervari()
     {
-        _fisier = fisier;
-        _adminCamere = adminCamere;
+        _fisier = new RezervareFisier();
+        _adminCamere = new AdministrareCamere();
         _rezervari = _fisier.IncarcaRezervari();
         ActualizareStatusRezervare();
     }

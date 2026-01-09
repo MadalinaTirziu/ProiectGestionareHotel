@@ -1,3 +1,5 @@
+using Hotel.Users.Models;
+
 namespace Hotel.Reservation.Model;
 using Hotel.Room.Model;
 using Hotel.Customers.Model;

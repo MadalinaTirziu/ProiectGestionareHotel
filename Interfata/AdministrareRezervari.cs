@@ -1,17 +1,19 @@
+using System.ComponentModel;
+using Hotel.Room.Admin;
 using Hotel.Room.Model;
 
 namespace Hotel.Reservation.Admin;
 using Hotel.Reservation.Model;
 using Hotel.Reservation.Files;
 
-public class AdministrareRezervari
+public class AdministrareRezervari 
 {
     private List<Rezervare> _rezervari;
-    private readonly RezervareFisier _fisier;
-
-    public AdministrareRezervari(RezervareFisier fisier)
+    private readonly RezervareFisier _fisier = new RezervareFisier();
+    private AdministrareCamere _ac = new AdministrareCamere();
+    public AdministrareRezervari()
     {
-        _fisier = fisier;
+        
         _rezervari = _fisier.IncarcaRezervari();
         ActualizareStatusRezervare();
     }
@@ -33,6 +35,7 @@ public class AdministrareRezervari
     {
         if (VerificaDisponibilitate(noua.CameraRezervata.Numar, noua.DataSosire, noua.DataPlecare))
         {
+            _ac.SetareStatusCamera(noua.CameraRezervata.Numar,StatusCamera.Ocupata);
             _rezervari.Add(noua);
             _fisier.SalveazaRezervari(_rezervari);
         }

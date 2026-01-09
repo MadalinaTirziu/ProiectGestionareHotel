@@ -21,4 +21,9 @@ public static class Session
         
         SessionChanged?.Invoke();
     }
+
+    public static void ChangeOccurred()
+    {
+        SessionChanged?.Invoke();
+    }
 }

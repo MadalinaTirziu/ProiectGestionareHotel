@@ -2,10 +2,14 @@
 using Hotel.Users.Models;
 using System.Windows;
 using System.Windows.Controls;
+using Hotel.CurrentReservation;
 using Hotel.SignIn;
 using Hotel.Security;
 using Hotel.SignUp;
 using Hotel.History;
+using Hotel.Room.Model;
+using Hotel.RoomPage;
+
 namespace Hotel;
 
 public partial class StartUpPage : Page
@@ -16,14 +20,11 @@ public partial class StartUpPage : Page
     {
         InitializeComponent();      
         this.DataContext = _vm;
-        SignInButton.Click -= SignInButton_Click;
         SignInButton.Click += SignInButton_Click;
-        SignUpButton.Click -= SignUpButton_Click;
         SignUpButton.Click += SignUpButton_Click;
-        HistoryButton.Click -= HistoryButton_Click;
         HistoryButton.Click += HistoryButton_Click;
-        LogOutButton.Click -= LogOutButton_Click;
         LogOutButton.Click += LogOutButton_Click;
+        CurrentReservationButton.Click += CurrentReservationButton_Click;
     }
 
     private void SignInButton_Click(object sender, RoutedEventArgs e)
@@ -57,6 +58,7 @@ public partial class StartUpPage : Page
         
         Session.CurrentFrame.GoBack();
     }
+    
 
     private void SignUpPage_SignUpSucceeded(object sender, EventArgs e)
     {
@@ -64,5 +66,21 @@ public partial class StartUpPage : Page
         Session.CurrentFrame.GoBack();
     }
 
+    private void CameraButton_Click(object sender, RoutedEventArgs e)
+    {
+        var button = sender as Button;
+        var selectedCamera = button.DataContext as Camera;
+        if (selectedCamera != null)
+        {
+            CameraPage cameraPage = new CameraPage(selectedCamera);
+            Session.CurrentFrame.Navigate(cameraPage);
+        }
+    }
+
+    private void CurrentReservationButton_Click(object sender, RoutedEventArgs e)
+    {
+        CurrentReservationPage currentReservationPage = new CurrentReservationPage();
+        Session.CurrentFrame.Navigate(currentReservationPage);
+    }
     
 }

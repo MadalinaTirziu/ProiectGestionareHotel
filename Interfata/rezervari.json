@@ -1,11 +1,10 @@
-﻿[
+[
   {
     "CameraRezervata": {
       "Numar": 102,
       "StatusCamera": "Ocupata"
     },
     "PersoanaRezervare": {
-      "Role": "customer",
       "Username": "Mada",
       "Password": "1"
     },
@@ -20,13 +19,194 @@
       "StatusCamera": "Ocupata"
     },
     "PersoanaRezervare": {
-      "Role": "customer",
       "Username": "Mada",
       "Password": "1"
     },
     "DataSosire": "2026-01-12",
     "DataPlecare": "2026-01-14",
     "NumarPersoane": 2,
+    "StatusRezervare": "Activa"
+  },
+  {
+    "CameraRezervata": {
+      "Numar": 104,
+      "StatusCamera": "Libera"
+    },
+    "PersoanaRezervare": {
+      "Username": "Mada",
+      "Password": "1"
+    },
+    "DataSosire": "2001-01-01",
+    "DataPlecare": "0002-02-01",
+    "NumarPersoane": 2,
+    "StatusRezervare": "Finalizata"
+  },
+  {
+    "CameraRezervata": {
+      "Numar": 104,
+      "StatusCamera": "Libera"
+    },
+    "PersoanaRezervare": {
+      "Username": "Mada",
+      "Password": "1"
+    },
+    "DataSosire": "2001-01-01",
+    "DataPlecare": "0002-02-02",
+    "NumarPersoane": 2,
+    "StatusRezervare": "Finalizata"
+  },
+  {
+    "CameraRezervata": {
+      "Numar": 104,
+      "StatusCamera": "Libera"
+    },
+    "PersoanaRezervare": {
+      "Username": "Mada",
+      "Password": "1"
+    },
+    "DataSosire": "0001-01-01",
+    "DataPlecare": "0001-02-02",
+    "NumarPersoane": 1,
+    "StatusRezervare": "Finalizata"
+  },
+  {
+    "CameraRezervata": {
+      "Numar": 104,
+      "StatusCamera": "Libera"
+    },
+    "PersoanaRezervare": {
+      "Username": "Mada",
+      "Password": "1"
+    },
+    "DataSosire": "0001-01-01",
+    "DataPlecare": "0001-02-02",
+    "NumarPersoane": 1,
+    "StatusRezervare": "Finalizata"
+  },
+  {
+    "CameraRezervata": {
+      "Numar": 104,
+      "StatusCamera": "Libera"
+    },
+    "PersoanaRezervare": {
+      "Username": "Mada",
+      "Password": "1"
+    },
+    "DataSosire": "0001-01-01",
+    "DataPlecare": "0002-01-01",
+    "NumarPersoane": 2,
+    "StatusRezervare": "Finalizata"
+  },
+  {
+    "CameraRezervata": {
+      "Numar": 104,
+      "StatusCamera": "Libera"
+    },
+    "PersoanaRezervare": {
+      "Username": "Mada",
+      "Password": "1"
+    },
+    "DataSosire": "0001-01-01",
+    "DataPlecare": "0001-01-01",
+    "NumarPersoane": 1,
+    "StatusRezervare": "Finalizata"
+  },
+  {
+    "CameraRezervata": {
+      "Numar": 105,
+      "StatusCamera": "Libera"
+    },
+    "PersoanaRezervare": {
+      "Username": "Mada",
+      "Password": "1"
+    },
+    "DataSosire": "0001-01-01",
+    "DataPlecare": "0001-01-01",
+    "NumarPersoane": 1,
+    "StatusRezervare": "Finalizata"
+  },
+  {
+    "CameraRezervata": {
+      "Numar": 104,
+      "StatusCamera": "Libera"
+    },
+    "PersoanaRezervare": {
+      "Username": "Mada",
+      "Password": "1"
+    },
+    "DataSosire": "0001-01-01",
+    "DataPlecare": "0002-01-01",
+    "NumarPersoane": 2,
+    "StatusRezervare": "Finalizata"
+  },
+  {
+    "CameraRezervata": {
+      "Numar": 104,
+      "StatusCamera": "Libera"
+    },
+    "PersoanaRezervare": {
+      "Username": "Mada",
+      "Password": "1"
+    },
+    "DataSosire": "0001-01-01",
+    "DataPlecare": "0001-01-01",
+    "NumarPersoane": 1,
+    "StatusRezervare": "Finalizata"
+  },
+  {
+    "CameraRezervata": {
+      "Numar": 104,
+      "StatusCamera": "Libera"
+    },
+    "PersoanaRezervare": {
+      "Username": "Mada",
+      "Password": "1"
+    },
+    "DataSosire": "0001-01-01",
+    "DataPlecare": "0002-01-01",
+    "NumarPersoane": 2,
+    "StatusRezervare": "Finalizata"
+  },
+  {
+    "CameraRezervata": {
+      "Numar": 105,
+      "StatusCamera": "Libera"
+    },
+    "PersoanaRezervare": {
+      "Username": "user",
+      "Password": "12345"
+    },
+    "DataSosire": "0001-01-01",
+    "DataPlecare": "0001-01-01",
+    "NumarPersoane": 1,
+    "StatusRezervare": "Finalizata"
+  },
+  {
+    "CameraRezervata": {
+      "Numar": 104,
+      "StatusCamera": "Libera"
+    },
+    "PersoanaRezervare": {
+      "Username": "Mada",
+      "Password": "1"
+    },
+    "DataSosire": "2001-01-01",
+    "DataPlecare": "2001-02-01",
+    "NumarPersoane": 2001,
+    "StatusRezervare": "Finalizata"
+  },
+  {
+    "CameraRezervata": {
+      "Numar": 104,
+      "StatusCamera": "Libera"
+    },
+    "PersoanaRezervare": {
+      "Username": "Mada",
+      "Password": "1"
+    },
+    "DataSosire": "0001-01-01",
+    "DataPlecare": "0002-01-01",
+    "NumarPersoane": 10,
     "StatusRezervare": "Activa"
   }
 ]

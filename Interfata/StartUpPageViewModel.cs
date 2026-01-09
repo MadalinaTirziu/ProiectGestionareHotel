@@ -1,4 +1,5 @@
 ﻿  
+using System.Collections.ObjectModel;
 using Hotel.Users.Models;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -6,7 +7,8 @@ using System.Windows;
 using System.Windows.Controls;
 using Hotel.SignIn;
 using Hotel.Security;
-
+using Hotel.Room.Files;
+using Hotel.Room.Model;
 namespace Hotel;
 
 public partial class StartUpPageViewModel : INotifyPropertyChanged
@@ -18,8 +20,15 @@ public partial class StartUpPageViewModel : INotifyPropertyChanged
     public StartUpPageViewModel()
     {
         Session.SessionChanged += Refresh;
+        IncarcaCamere();
+
     }
-    
+
+    private void IncarcaCamere()
+    {
+        var data = _fisierCamera.IncarcaCamereDisponibile();
+        CamereLibere = new ObservableCollection<Camera>(data);
+    }
     private Visibility _signInVisibility = Visibility.Visible;
     public Visibility SignInVisibility 
     { 
@@ -48,7 +57,19 @@ public partial class StartUpPageViewModel : INotifyPropertyChanged
         get => _UserMenuVisibility;
         set { _UserMenuVisibility = value; OnPropertyChanged(); }
     }
-    
+    private Visibility _AdminMenuVisibility = Visibility.Collapsed;
+    public Visibility AdminMenuVisibility
+    {
+        get => _AdminMenuVisibility;
+        set { _AdminMenuVisibility = value; OnPropertyChanged(); }
+    }
+    private Visibility _CommonVisibility = Visibility.Visible;
+
+    public Visibility CommonVisibility
+    {
+        get => _CommonVisibility;
+        set { _CommonVisibility = value; OnPropertyChanged(); }
+    }
     public string CurrentUsername 
     {
         get => Security.Session.CurrentUser?.Username ?? "";
@@ -62,7 +83,15 @@ public partial class StartUpPageViewModel : INotifyPropertyChanged
             SignInVisibility = Visibility.Collapsed;
             SignUpVisibility = Visibility.Collapsed;
             UserTextBoxVisibility = Visibility.Visible;
-            UserMenuVisibility = Visibility.Visible;
+            CommonVisibility = Visibility.Visible;
+            if (Session.CurrentUser.Role == UserRole.Admin)
+            {
+                AdminMenuVisibility = Visibility.Visible;
+            }
+            else
+            {
+                UserMenuVisibility = Visibility.Visible;
+            }
         }
         else
         {
@@ -70,10 +99,26 @@ public partial class StartUpPageViewModel : INotifyPropertyChanged
             SignUpVisibility = Visibility.Visible;
             UserTextBoxVisibility = Visibility.Collapsed;
             UserMenuVisibility = Visibility.Collapsed;
+            AdminMenuVisibility = Visibility.Collapsed;
+            CommonVisibility = Visibility.Collapsed;
         }
-        Console.WriteLine($"{Session.IsAuthenticated} - {Session.CurrentUser != null} - {SignInVisibility} - {SignUpVisibility} - {UserTextBoxVisibility} - {UserMenuVisibility}");
+
+        IncarcaCamere();
         OnPropertyChanged(nameof(CurrentUsername));
     }
+
+    private CameraFisier _fisierCamera = new CameraFisier();
+    private ObservableCollection<Camera> _camereLibere;
+    public ObservableCollection<Camera> CamereLibere
+    {
+        get => _camereLibere;
+        set 
+        { 
+            _camereLibere = value; 
+            OnPropertyChanged(); 
+        }
+    }
+    
     private void SignInButton_Click(object sender, RoutedEventArgs e)
     {
         

@@ -6,7 +6,7 @@ namespace Hotel.Room.Files;
 
 public class CameraFisier
 {
-    private readonly string _caleFisier = "C:\\Users\\Madalina\\OneDrive\\Desktop\\c#\\Proiect\\Proiect\\camere.json";
+    private readonly string _caleFisier = "camere.json";
 
     private readonly JsonSerializerOptions _options = new()
     {
@@ -19,7 +19,16 @@ public class CameraFisier
         try
         {
             string jsonString = JsonSerializer.Serialize(camere, _options);
-            File.WriteAllText(_caleFisier, jsonString);
+            using (FileStream fs = new FileStream(_caleFisier, FileMode.Create))
+            {
+                using (StreamWriter writer = new StreamWriter(fs))
+                {
+                    writer.Write(jsonString);
+                    writer.Flush();
+                    fs.Flush(); 
+                }
+                
+            }
         }
         catch (IOException e)
         {
@@ -35,6 +44,22 @@ public class CameraFisier
         {
             string jsonString = File.ReadAllText(_caleFisier);
             return JsonSerializer.Deserialize<List<Camera>>(jsonString, _options);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Eroare la incarcarea JSON: {ex.Message}");
+            return new List<Camera>();
+        }
+    }
+    public List<Camera> IncarcaCamereDisponibile()
+    {
+        if (!File.Exists(_caleFisier))
+            return new List<Camera>();
+        try
+        {
+            string jsonString = File.ReadAllText(_caleFisier);
+            List<Camera> camere = JsonSerializer.Deserialize<List<Camera>>(jsonString, _options);
+            return camere.Where(u => u.StatusCamera == StatusCamera.Libera).ToList();
         }
         catch (Exception ex)
         {

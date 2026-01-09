@@ -22,11 +22,9 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Admin\" />
-      <Folder Include="Main Window\" />
-      <Folder Include="Rezervari\" />
-      <Folder Include="Room\" />
-      <Folder Include="Start Up\" />
+      <Compile Update="CurrentReservationPage.xaml.cs">
+        <DependentUpon>CurrentReservationsPage.xaml</DependentUpon>
+      </Compile>
     </ItemGroup>
 
 </Project>

@@ -43,4 +43,10 @@ public class RezervareFisier
             return new List<Rezervare>();
         }
     }
+    public void AdaugaRezervareInFisier(Rezervare rezervare)
+    {
+        List<Rezervare> rezervari = IncarcaRezervari();
+        rezervari.Add(rezervare);
+        SalveazaRezervari(rezervari);
+    }
 }

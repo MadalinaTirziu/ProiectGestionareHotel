@@ -45,7 +45,9 @@ public class SignUpPageViewModel : INotifyPropertyChanged
     public SignUpPageViewModel()
     {
         SignUpCommand = new RelayCommand(Submit);
+        
     }
+    
     private readonly string _jsonPath = "Data.json";
     private void Submit(object parameter)
     {

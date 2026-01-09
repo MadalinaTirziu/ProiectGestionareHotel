@@ -6,10 +6,11 @@ namespace Hotel.Room.Admin;
 public class AdministrareCamere
 {
     private List<Camera> _camere;
-    private readonly CameraFisier _fisier= new CameraFisier();
+    private readonly CameraFisier _fisier;
 
     public AdministrareCamere()
     {
+        _fisier = new CameraFisier();
         _camere = _fisier.IncarcaCamere();
     }
 
@@ -41,6 +42,7 @@ public class AdministrareCamere
         {
             cameraGasita.ModificareStatus(statusNou);
             _fisier.SalveazaCamere(_camere);
+            Console.WriteLine($"Statusul camerei {numar} a fost schimbat în {statusNou}.");
         }
     }
 

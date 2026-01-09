@@ -10,10 +10,42 @@
                     <Setter Property="FontWeight" Value="Bold" />
                     
                 </Style>
+                <Style x:Key="PlaceholderTextBox" TargetType="TextBox">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="TextBox">
+                                <Grid>
+                                    <Border x:Name="border" 
+                                            BorderBrush="{TemplateBinding BorderBrush}" 
+                                            BorderThickness="{TemplateBinding BorderThickness}" 
+                                            Background="{TemplateBinding Background}" 
+                                            SnapsToDevicePixels="True">
+                                        <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                                    </Border>
+
+                                    <TextBlock x:Name="placeholder" 
+                                               Text="{TemplateBinding Tag}" 
+                                               Foreground="Gray" 
+                                               IsHitTestVisible="False" 
+                                               Margin="5,2,0,0" 
+                                               Visibility="Collapsed"/>
+                                </Grid>
+                                <ControlTemplate.Triggers>
+                                    <MultiTrigger>
+                                        <MultiTrigger.Conditions>
+                                            <Condition Property="Text" Value=""/>
+                                        </MultiTrigger.Conditions>
+                                        <Setter TargetName="placeholder" Property="Visibility" Value="Visible"/>
+                                    </MultiTrigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
             </Grid.Resources>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="2*"/>
                 <RowDefinition Height="4*" />
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
@@ -52,12 +84,53 @@
                     <Run Text="Username: "/>
                     <Run Text="{Binding CurrentUsername}" />
             </TextBlock>
-            <TextBlock Grid.Row="1" Grid.Column="1" Text="Camere disponibile" Visibility="{Binding CommonVisibility}"/>
-            <ListView Grid.Row="2" Grid.Column="1" ItemsSource="{Binding CamereLibere}" 
-                      VirtualizingStackPanel.IsVirtualizing="True"
-                      ScrollViewer.VerticalScrollBarVisibility="Auto"
-                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                      Visibility="{Binding CommonVisibility}">
+            <Grid Grid.Row="1" Grid.Column="1" Margin='5'>
+                
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0"  Text="Camere disponibile"/>
+                <Grid Grid.Row="1" Visibility="{Binding DatesVisibility}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0"  Text="Data Sosire" Visibility="{Binding DatesVisibility}"/>
+                    <Grid Grid.Column="1" Margin="5" Visibility="{Binding DatesVisibility}" >
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <TextBox Margin="1" Grid.Row="0"  Text="{Binding ZiSosire, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}"  Style="{StaticResource PlaceholderTextBox}" Tag="Zi"/>
+                        <TextBox Margin="1" Grid.Row="1"  Text="{Binding LunaSosire, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}" Style="{StaticResource PlaceholderTextBox}" Tag="Luna"/>
+                        <TextBox Margin="1" Grid.Row="2"  Text="{Binding AnSosire, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}"  Style="{StaticResource PlaceholderTextBox}" Tag="An"/>
+                    </Grid>
+                        
+                    <TextBlock Grid.Column="2"  Text="Data Plecare" Visibility="{Binding DatesVisibility}"/>
+                    <Grid Grid.Column="4" Margin="5" Visibility="{Binding DatesVisibility}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <TextBox Margin="1" Grid.Row="0"  Text="{Binding ZiPlecare, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}"  Style="{StaticResource PlaceholderTextBox}" Tag="Zi"/>
+                        <TextBox Margin="1" Grid.Row="1"  Text="{Binding LunaPlecare, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}"  Style="{StaticResource PlaceholderTextBox}" Tag="Luna"/>
+                        <TextBox Margin="1" Grid.Row="2"  Text="{Binding AnPlecare, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}"  Style="{StaticResource PlaceholderTextBox}" Tag="An"/>
+                    </Grid>
+                </Grid>
+                </Grid>
+            <Grid Grid.Row="1" Grid.Column="1" Margin='5' Visibility="{Binding NumberVisibility}">
+                <TextBox Margin="1" Width="120" Height="20"  Text="{Binding NumarCamera, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource PlaceholderTextBox}" Tag="Numar"/>
+            </Grid>
+                <ListView Grid.Row="2" Grid.Column="1" ItemsSource="{Binding CamereLibere}" 
+                          VirtualizingStackPanel.IsVirtualizing="True"
+                          ScrollViewer.VerticalScrollBarVisibility="Auto"
+                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                          >
                   
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -89,6 +162,21 @@
                 </StackPanel>
             </Grid>
             <Button Grid.Column="0" Grid.Row="0" Content="Log out" Margin="30 10 30 10" x:Name="LogOutButton" Height="20" Visibility="{Binding UserMenuVisibility}" />
+            <Grid Grid.Row="1" Margin="15 0 0 0">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Metoda de cautare" VerticalAlignment="Bottom"/>
+                <Grid Row="1" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0" Content="Dupa Data" Margin="5" Height="20" VerticalAlignment="Top" Command="{Binding SetSearchDates}" />
+                    <Button Grid.Column="1" Content="Dupa Numar" Margin="5" Height="20" VerticalAlignment="Top" Command="{Binding SetSearchNumber}" />
+                </Grid>
+            </Grid>
     </Grid>
         
     

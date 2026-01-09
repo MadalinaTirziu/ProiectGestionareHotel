@@ -5,6 +5,9 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
+using Hotel.CurrentReservation.ViewModel;
+using Hotel.Reservation.Admin;
 using Hotel.SignIn;
 using Hotel.Security;
 using Hotel.Room.Files;
@@ -17,17 +20,62 @@ public partial class StartUpPageViewModel : INotifyPropertyChanged
     private void OnPropertyChanged([CallerMemberName] string prop = null)
         => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
 
+    private string _numarCamera;
+
+    public string NumarCamera
+    {
+        get => _numarCamera;
+        set { 
+            _numarCamera = value; OnPropertyChanged();
+            IncarcaCamere();
+        }
+    }
     public StartUpPageViewModel()
     {
         Session.SessionChanged += Refresh;
         IncarcaCamere();
+        SetSearchDates = new RelayCommand(ExecuteDatesVisibility);
+        SetSearchNumber = new RelayCommand(ExecuteNumberVisibility);
+    }
+    public ICommand SetSearchDates { get; set; }
+    public ICommand SetSearchNumber { get; set; }
+    private Visibility _DatesVisibility  = Visibility.Visible;
+    public Visibility DatesVisibility
+    {
+        get => _DatesVisibility;
+        set { _DatesVisibility = value; OnPropertyChanged(); }
+    }
+    private Visibility _NumberVisibility = Visibility.Collapsed ;
 
+    public Visibility NumberVisibility
+    {
+        get => _NumberVisibility;
+        set { _NumberVisibility = value; OnPropertyChanged(); }
     }
 
+    private void ExecuteDatesVisibility(object parameter)
+    {
+        DatesVisibility = Visibility.Visible;
+        NumberVisibility = Visibility.Collapsed;
+    }
+
+    private void ExecuteNumberVisibility(object parameter)
+    {
+        DatesVisibility = Visibility.Collapsed;
+        NumberVisibility = Visibility.Visible;
+    }
     private void IncarcaCamere()
     {
-        var data = _fisierCamera.IncarcaCamereDisponibile();
-        CamereLibere = new ObservableCollection<Camera>(data);
+        if (NumarCamera is null)
+        {
+            var data = _fisierCamera.IncarcaCamereDisponibile();
+            CamereLibere = new ObservableCollection<Camera>(data);
+        }
+        else
+        {
+            var data = _fisierCamera.IncarcaCamereDisponibile().Where(u => u.Numar.ToString().Contains(NumarCamera));
+            CamereLibere = new ObservableCollection<Camera>(data);
+        }
     }
     private Visibility _signInVisibility = Visibility.Visible;
     public Visibility SignInVisibility 
@@ -75,7 +123,116 @@ public partial class StartUpPageViewModel : INotifyPropertyChanged
         get => Security.Session.CurrentUser?.Username ?? "";
         set { }
     }
+    private int? _ziSosire;
+    public int? ZiSosire 
+    { 
+        get => _ziSosire; 
+        set 
+        { 
+            if (value == 0) _ziSosire = null;
+            else _ziSosire = value;
+            OnPropertyChanged(); 
+            CheckToLoadList();
+        } 
+    }
+    
+    private int? _lunaSosire;
+    public int? LunaSosire 
+    { 
+        get => _lunaSosire; 
+        set 
+        { 
+            if (value == 0) _lunaSosire = null;
+            else _lunaSosire = value;
+            OnPropertyChanged(); 
+            CheckToLoadList();
+        } 
+    }
 
+    private int? _anSosire;
+    public int? AnSosire 
+    { 
+        get => _anSosire; 
+        set 
+        { 
+            if (value == 0) _anSosire = null;
+            else _anSosire = value;
+            OnPropertyChanged(); 
+            CheckToLoadList();
+        } 
+    }
+    
+    private int? _ziPlecare;
+    public int? ZiPlecare 
+    { 
+        get => _ziPlecare; 
+        set 
+        { 
+            if (value == 0) _ziPlecare = null;
+            else _ziPlecare = value;
+            OnPropertyChanged(); 
+            CheckToLoadList();
+        } 
+    }
+
+    private int? _lunaPlecare;
+    public int? LunaPlecare 
+    { 
+        get => _lunaPlecare; 
+        set 
+        { 
+            if (value == 0) _lunaPlecare = null;
+            else _lunaPlecare = value;
+            OnPropertyChanged(); 
+            CheckToLoadList();
+        } 
+    }
+
+    private int? _anPlecare;
+    public int? AnPlecare 
+    { 
+        get => _anPlecare; 
+        set 
+        { 
+            if (value == 0) _anPlecare = null;
+            else _anPlecare = value;
+            OnPropertyChanged();
+            CheckToLoadList();
+        } 
+    }
+
+    private void CheckToLoadList()
+    {
+        try
+        {
+
+
+            if (ZiSosire != null && LunaSosire != null && AnSosire != null && ZiPlecare != null &&
+                LunaPlecare != null &&
+                AnPlecare != null)
+            {
+
+                DateOnly sosire = new DateOnly(AnSosire.Value, LunaSosire.Value, ZiSosire.Value);
+                DateOnly plecare = new DateOnly(AnPlecare.Value, LunaPlecare.Value, ZiPlecare.Value);
+                if (plecare <= sosire) return;
+                AdministrareRezervari ar = new AdministrareRezervari();
+                
+                var toateCamerele = _fisierCamera.IncarcaCamere(); 
+            
+                // Use LINQ to make it cleaner
+                var disponibile = toateCamerele
+                    .Where(camera => ar.VerificaDisponibilitate(camera.Numar, sosire, plecare))
+                    .ToList();
+
+                CamereLibere = new ObservableCollection<Camera>(disponibile);
+                //OnPropertyChanged(nameof(CamereLibere));
+            }
+        }
+        catch (ArgumentOutOfRangeException)
+        {
+            return;
+        }
+    }
     public void Refresh()
     {
         if (Session.IsAuthenticated)

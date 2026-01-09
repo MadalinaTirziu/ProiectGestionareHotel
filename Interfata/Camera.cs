@@ -29,5 +29,16 @@ public class Camera
         StatusCamera = status;
     }
     
-    
+    public override bool Equals(object? other)
+    {
+        if(other == null) return false;
+        Camera OtherCamera = other as Camera;
+        if (OtherCamera == null) return false;
+        return Numar == OtherCamera.Numar && StatusCamera == OtherCamera.StatusCamera;
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(Numar, (int)StatusCamera);
+    }
 }

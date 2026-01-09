@@ -40,4 +40,12 @@ public class Rezervare
     {
         StatusRezervare = status;
     }
+
+    public override bool Equals(object? obj)
+    {
+        if (obj == null) return false;
+        Rezervare other = obj as Rezervare;
+        if (other == null) return false;
+        return (other.NumarPersoane == NumarPersoane && other.PersoanaRezervare.Equals(PersoanaRezervare) && other.StatusRezervare == StatusRezervare && other.CameraRezervata.Equals(CameraRezervata) && other.DataSosire == DataSosire && other.DataPlecare == DataPlecare);
+    }
 }

@@ -32,7 +32,7 @@
                                        FontSize="16" FontWeight="Bold"/>
                                
 
-                            <TextBlock Text="{Binding NumarPersoane, StringFormat='Status: {0}'}" 
+                            <TextBlock Text="{Binding NumarPersoane, StringFormat='Numar Persoane: {0}'}" 
                                        Foreground="DarkBlue"/>
 
                             <TextBlock Foreground="Gray">
@@ -43,7 +43,8 @@
                                     </MultiBinding>
                                 </TextBlock.Text>
                             </TextBlock>
-                            <Button x:Name="EditReservationButton" HorizontalAlignment="Right" Content="Edit" Width="80" />
+                            <Button HorizontalAlignment="Right" Margin='5' Content="Edit" Width="80" CommandParameter="{Binding}" Command="{Binding DataContext.EditReservationCommand, RelativeSource={RelativeSource AncestorType=ListView}}"/>
+                            <Button HorizontalAlignment="Right" Margin='5' Content="Anulare" Width="80" CommandParameter="{Binding}"  Command="{Binding DataContext.CancelCommand, RelativeSource={RelativeSource AncestorType=ListView}}"/>
                         </StackPanel>
                     </Border>
                 </DataTemplate>

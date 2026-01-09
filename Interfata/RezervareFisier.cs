@@ -19,7 +19,16 @@ public class RezervareFisier
         try
         {
             string jsonString = JsonSerializer.Serialize(rezervari, _options);
-            File.WriteAllText(_caleFisier, jsonString);
+            using (FileStream fs = new FileStream(_caleFisier, FileMode.Create))
+            {
+                using (StreamWriter writer = new StreamWriter(fs))
+                {
+                    writer.Write(jsonString);
+                    writer.Flush();
+                    fs.Flush(); 
+                }
+                
+            }
 
         }
         catch (IOException e)

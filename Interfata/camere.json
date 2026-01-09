@@ -1,18 +1,34 @@
 [
   {
     "Numar": 102,
-    "StatusCamera": "Ocupata"
+    "StatusCamera": "Libera"
   },
   {
     "Numar": 103,
-    "StatusCamera": "Ocupata"
+    "StatusCamera": "Libera"
   },
   {
     "Numar": 104,
-    "StatusCamera": "Ocupata"
+    "StatusCamera": "Libera"
   },
   {
     "Numar": 105,
+    "StatusCamera": "Libera"
+  },
+  {
+    "Numar": 201,
+    "StatusCamera": "Libera"
+  },
+  {
+    "Numar": 202,
+    "StatusCamera": "Libera"
+  },
+  {
+    "Numar": 203,
+    "StatusCamera": "Libera"
+  },
+  {
+    "Numar": 204,
     "StatusCamera": "Libera"
   }
 ]

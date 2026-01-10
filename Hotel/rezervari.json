@@ -1,0 +1,16 @@
+[
+  {
+    "CameraRezervata": {
+      "Numar": 102,
+      "StatusCamera": "Ocupata"
+    },
+    "PersoanaRezervare": {
+      "Username": "Mada",
+      "Password": "1"
+    },
+    "DataSosire": "0003-03-03",
+    "DataPlecare": "0004-04-04",
+    "NumarPersoane": 3,
+    "StatusRezervare": "Finalizata"
+  }
+]

@@ -1,0 +1,64 @@
+﻿<Page x:Class="Hotel.CurrentReservation.CurrentReservationPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:local="clr-namespace:Hotel.CurrentReservation.ViewModel">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="8*"/>
+        </Grid.ColumnDefinitions>
+        
+        <ListView Grid.Row="1" Grid.Column="1" ItemsSource="{Binding rezervariCustomer}" 
+                  VirtualizingStackPanel.IsVirtualizing="True"
+                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                  Visibility="{Binding ActiveVisibility}">
+                  
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border Background="White" 
+                            BorderBrush="#DDDDDD" 
+                            BorderThickness="1" 
+                            CornerRadius="4" 
+                            Margin="5" 
+                            Padding="15">
+                        <StackPanel>
+                                <TextBlock Text="{Binding CameraRezervata.Numar, StringFormat='Camera: {0}'}" 
+                                       FontSize="16" FontWeight="Bold"/>
+                               
+
+                            <TextBlock Text="{Binding NumarPersoane, StringFormat='Numar Persoane: {0}'}" 
+                                       Foreground="DarkBlue"/>
+
+                            <TextBlock Foreground="Gray">
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="Perioada: {0:dd/MM/yyyy} - {1:dd/MM/yyyy}">
+                                        <Binding Path="DataSosire" />
+                                        <Binding Path="DataPlecare" />
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                            <Button HorizontalAlignment="Right" Margin='5' Content="Edit" Width="80" CommandParameter="{Binding}" Command="{Binding DataContext.EditReservationCommand, RelativeSource={RelativeSource AncestorType=ListView}}"/>
+                            <Button HorizontalAlignment="Right" Margin='5' Content="Anulare" Width="80" CommandParameter="{Binding}"  Command="{Binding DataContext.CancelCommand, RelativeSource={RelativeSource AncestorType=ListView}}"/>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <TextBlock Grid.Column="1" TextAlignment="Center" Text="Rezervari active" FontSize="24" Foreground="Black" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Row="1" Grid.Column="1" Visibility="{Binding notActiveVisibility}" Text="Nu au fost gasite rezervari" ></TextBlock>
+        <Button Width="40" Height="40" Background="White" Command="{Binding GoBackCommand}">
+            <Path Data="M 10,0 L 0,5 L 10,10 Z" 
+                  Fill="Black" 
+                  Stretch="Uniform" 
+                  HorizontalAlignment="Center" 
+                  VerticalAlignment="Center" 
+                  Margin="5"/>
+        </Button>
+    </Grid>
+</Page>

@@ -105,7 +105,7 @@ public class AdministrareRezervari : ICustomerService
         bool modificari = false;
         foreach (var r in _rezervari)
         {
-            Console.WriteLine($"{r.CameraRezervata.Numar}");
+            //Console.WriteLine($"{r.CameraRezervata.Numar}");
             if (r.StatusRezervare == StatusRezervare.Activa && azi > r.DataPlecare)
             {
                 r.StatusRezervare = StatusRezervare.Finalizata;

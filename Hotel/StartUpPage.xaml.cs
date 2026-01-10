@@ -2,6 +2,8 @@
 using Hotel.Users.Models;
 using System.Windows;
 using System.Windows.Controls;
+using Hotel.Admins.ReservationStatus;
+using Hotel.Admins.RoomStatus;
 using Hotel.CurrentReservation;
 using Hotel.SignIn;
 using Hotel.Security;
@@ -58,12 +60,14 @@ public partial class StartUpPage : Page
 
     private void RoomStatusButton_Click(object sender, RoutedEventArgs e)
     {
-        
+        RoomStatusPage roomStatusPage = new RoomStatusPage();
+        Session.CurrentFrame.Navigate(roomStatusPage);
     }
 
     private void ReservationStatusButton_Click(object sender, RoutedEventArgs e)
-    {
-        
+    {   
+        ReservationStatusPage reservationStatusPage = new ReservationStatusPage();
+        Session.CurrentFrame.Navigate(reservationStatusPage);
     }
     private void SignInPage_LoginSucceeded(object sender, EventArgs e)
     {

@@ -68,5 +68,19 @@
     "DataPlecare": "2026-01-13",
     "NumarPersoane": 1,
     "StatusRezervare": "Activa"
+  },
+  {
+    "CameraRezervata": {
+      "Numar": 102,
+      "StatusCamera": "Ocupata"
+    },
+    "PersoanaRezervare": {
+      "Username": "Gruia",
+      "Password": "123"
+    },
+    "DataSosire": "2026-02-26",
+    "DataPlecare": "2026-03-01",
+    "NumarPersoane": 1,
+    "StatusRezervare": "Finalizata"
   }
 ]

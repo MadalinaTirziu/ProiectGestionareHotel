@@ -73,14 +73,15 @@ public class CameraPageViewModel :INotifyPropertyChanged
         {
             if (Session.IsAuthenticated)
             {
-                if (AnPlecare < AnSosire || ZiPlecare < ZiSosire || LunaPlecare < LunaSosire)
+                DateOnly dataSosire = new DateOnly(AnSosire, LunaSosire, ZiSosire);
+                DateOnly dataPlecare = new DateOnly(AnPlecare, LunaPlecare, ZiPlecare);
+                if (dataSosire > dataPlecare)
                 {
                     MessageBox.Show("Date invalide!");
                 }
                 else
                 {
-                    DateOnly dataSosire = new DateOnly(AnSosire, LunaSosire, ZiSosire);
-                    DateOnly dataPlecare = new DateOnly(AnPlecare, LunaPlecare, ZiPlecare);
+                    
                     AdministrareRezervari rf = new AdministrareRezervari();
                     if (Session.CurrentUser.Role == UserRole.Customer && rf.VerificaDisponibilitate(SelectedRoom.Numar,dataSosire, dataPlecare))
                     {

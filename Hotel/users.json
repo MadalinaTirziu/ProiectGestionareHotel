@@ -23,5 +23,10 @@
     "Role": "customer",
     "Username": "Andreea",
     "Password": "2"
+  },
+  {
+    "Role": "customer",
+    "Username": "Gruia",
+    "Password": "123"
   }
 ]

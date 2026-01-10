@@ -1,9 +1,5 @@
 [
   {
-    "Numar": 102,
-    "StatusCamera": "Libera"
-  },
-  {
     "Numar": 103,
     "StatusCamera": "Libera"
   },
@@ -29,6 +25,10 @@
   },
   {
     "Numar": 204,
+    "StatusCamera": "Ocupata"
+  },
+  {
+    "Numar": 102,
     "StatusCamera": "Libera"
   }
 ]

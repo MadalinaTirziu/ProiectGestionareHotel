@@ -14,14 +14,14 @@ public class AdministrareCamere
         _camere = _fisier.IncarcaCamere();
     }
 
-    public void AdaugaCamera(int numar)
+    public void AdaugaCamera(int numar, StatusCamera statusNou)
     {
         if (_camere.Any(c => c.Numar == numar))
         {
             Console.WriteLine($"Eroare: Camera {numar} exista deja.");
             return;
         }
-        _camere.Add(new Camera(numar));
+        _camere.Add(new Camera(numar,statusNou));
         _fisier.SalveazaCamere(_camere);
         Console.WriteLine($"Camera {numar} a fost creata.");
     }

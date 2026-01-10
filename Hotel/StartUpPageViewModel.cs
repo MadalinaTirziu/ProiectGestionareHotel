@@ -8,6 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using Hotel.CurrentReservation.ViewModel;
 using Hotel.Reservation.Admin;
+using Hotel.Room.Admin;
 using Hotel.SignIn;
 using Hotel.Security;
 using Hotel.Room.Files;
@@ -68,12 +69,13 @@ public partial class StartUpPageViewModel : INotifyPropertyChanged
     {
         if (NumarCamera is null)
         {
-            var data = _fisierCamera.IncarcaCamereDisponibile();
+            
+            var data = _fisierCamera.IncarcaCamereDisponibile().OrderBy(c => c.Numar).ToList();
             CamereLibere = new ObservableCollection<Camera>(data);
         }
         else
         {
-            var data = _fisierCamera.IncarcaCamereDisponibile().Where(u => u.Numar.ToString().Contains(NumarCamera));
+            var data = _fisierCamera.IncarcaCamereDisponibile().Where(u => u.Numar.ToString().Contains(NumarCamera)).OrderBy(c => c.Numar).ToList();;
             CamereLibere = new ObservableCollection<Camera>(data);
         }
     }

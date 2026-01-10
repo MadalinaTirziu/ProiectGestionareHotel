@@ -48,7 +48,7 @@ public class SignUpPageViewModel : INotifyPropertyChanged
         
     }
     
-    private readonly string _jsonPath = "Data.json";
+    private readonly string _jsonPath = "users.json";
     private void Submit(object parameter)
     {
         try

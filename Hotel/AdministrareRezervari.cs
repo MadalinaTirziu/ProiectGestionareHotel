@@ -115,9 +115,16 @@ public class AdministrareRezervari : ICustomerService
             {
                 StatusCamera statusVechi = r.CameraRezervata.StatusCamera;
                 if (azi == r.DataPlecare.AddDays(1))
+                {
+                    r.CameraRezervata.StatusCamera = StatusCamera.In_Curatenie;
                     _adminCamere.SetareStatusCamera(r.CameraRezervata.Numar, StatusCamera.In_Curatenie);
+                }
                 else if (azi >= r.DataPlecare.AddDays(2))
+                {
+                    r.CameraRezervata.StatusCamera = StatusCamera.Libera;
                     _adminCamere.SetareStatusCamera(r.CameraRezervata.Numar, StatusCamera.Libera);
+                }
+
                 if (statusVechi != r.CameraRezervata.StatusCamera)
                     modificari = true;
             }

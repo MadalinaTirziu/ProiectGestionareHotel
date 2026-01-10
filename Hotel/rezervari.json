@@ -2,7 +2,7 @@
   {
     "CameraRezervata": {
       "Numar": 102,
-      "StatusCamera": "Ocupata"
+      "StatusCamera": "Libera"
     },
     "PersoanaRezervare": {
       "Username": "Mada",
@@ -12,5 +12,61 @@
     "DataPlecare": "0004-04-04",
     "NumarPersoane": 3,
     "StatusRezervare": "Finalizata"
+  },
+  {
+    "CameraRezervata": {
+      "Numar": 102,
+      "StatusCamera": "Libera"
+    },
+    "PersoanaRezervare": {
+      "Username": "Mada",
+      "Password": "1"
+    },
+    "DataSosire": "0006-06-06",
+    "DataPlecare": "0007-07-07",
+    "NumarPersoane": 3,
+    "StatusRezervare": "Finalizata"
+  },
+  {
+    "CameraRezervata": {
+      "Numar": 102,
+      "StatusCamera": "Ocupata"
+    },
+    "PersoanaRezervare": {
+      "Username": "Mada",
+      "Password": "1"
+    },
+    "DataSosire": "2026-02-05",
+    "DataPlecare": "2026-02-13",
+    "NumarPersoane": 2,
+    "StatusRezervare": "Activa"
+  },
+  {
+    "CameraRezervata": {
+      "Numar": 102,
+      "StatusCamera": "Libera"
+    },
+    "PersoanaRezervare": {
+      "Username": "Andreea",
+      "Password": "2"
+    },
+    "DataSosire": "2026-01-12",
+    "DataPlecare": "2026-01-15",
+    "NumarPersoane": 1,
+    "StatusRezervare": "Anulata"
+  },
+  {
+    "CameraRezervata": {
+      "Numar": 102,
+      "StatusCamera": "Ocupata"
+    },
+    "PersoanaRezervare": {
+      "Username": "Andreea",
+      "Password": "2"
+    },
+    "DataSosire": "2026-01-11",
+    "DataPlecare": "2026-01-13",
+    "NumarPersoane": 1,
+    "StatusRezervare": "Activa"
   }
 ]

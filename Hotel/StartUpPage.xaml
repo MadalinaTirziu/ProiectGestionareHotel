@@ -74,7 +74,7 @@
                     CornerRadius="5" 
                     Background="DarkGreen"
                     Padding="5"
-                    Visibility="{Binding UserMenuVisibility}"/>
+                    Visibility="{Binding CommonVisibility}"/>
             <TextBlock Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="0"
                      Visibility="{Binding UserTextBoxVisibility}" 
                      HorizontalAlignment="Left" VerticalAlignment="Center"
@@ -155,13 +155,17 @@
                     <RowDefinition Height="33"/>
                     <RowDefinition Height="6*"/>
                 </Grid.RowDefinitions>
-                <TextBlock  Grid.Row="0" Text="Meniu:" Margin="0"  Visibility="{Binding UserMenuVisibility}" Style="{StaticResource HeaderTextStyle}" />
-                <StackPanel Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left">
-                    <Button  Content="Istoric sejururi" Margin="5 5 60 5" Height="20" Width="100"  x:Name="HistoryButton" Visibility="{Binding UserMenuVisibility}" />
-                    <Button  Content="Rezervari active" Margin="5 5 60 5" Height="20" Width="100"  x:Name="CurrentReservationButton" Visibility="{Binding UserMenuVisibility}" />
+                <TextBlock  Grid.Row="0" Text="Meniu:" Margin="0"  Visibility="{Binding CommonVisibility}" Style="{StaticResource HeaderTextStyle}" />
+                <StackPanel Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left" Visibility="{Binding UserMenuVisibility}" >
+                    <Button  Content="Istoric sejururi" Margin="5 5 60 5" Height="20" Width="100"  x:Name="HistoryButton" />
+                    <Button  Content="Rezervari active" Margin="5 5 60 5" Height="20" Width="100"  x:Name="CurrentReservationButton" />
+                </StackPanel>
+                <StackPanel Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left" Visibility="{Binding AdminMenuVisibility}" >
+                    <Button  Content="Situatii Camere" Margin="5 5 60 5" Height="20" Width="100"   x:Name="RoomStatusButton"/>
+                    <Button  Content="Situatii Rezervari" Margin="5 5 60 5" Height="20" Width="100"  x:Name="ReservationStatusButton" />
                 </StackPanel>
             </Grid>
-            <Button Grid.Column="0" Grid.Row="0" Content="Log out" Margin="30 10 30 10" x:Name="LogOutButton" Height="20" Visibility="{Binding UserMenuVisibility}" />
+            <Button Grid.Column="0" Grid.Row="0" Content="Log out" Margin="30 10 30 10" x:Name="LogOutButton" Height="20" Visibility="{Binding CommonVisibility}" />
             <Grid Grid.Row="1" Margin="15 0 0 0">
                 <Grid.RowDefinitions>
                     <RowDefinition/>

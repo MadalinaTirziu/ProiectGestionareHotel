@@ -81,19 +81,23 @@ public class CameraPageViewModel :INotifyPropertyChanged
                 {
                     DateOnly dataSosire = new DateOnly(AnSosire, LunaSosire, ZiSosire);
                     DateOnly dataPlecare = new DateOnly(AnPlecare, LunaPlecare, ZiPlecare);
-                    if (Session.CurrentUser.Role == UserRole.Customer)
+                    AdministrareRezervari rf = new AdministrareRezervari();
+                    if (Session.CurrentUser.Role == UserRole.Customer && rf.VerificaDisponibilitate(SelectedRoom.Numar,dataSosire, dataPlecare))
                     {
                         Customer DateCustomer = new Customer(Session.CurrentUser.Username, Session.CurrentUser.Password);
                         CurrentRezervare = new Rezervare(SelectedRoom, DateCustomer, dataSosire, dataPlecare,
                             NumarPersoane);
+                        MessageBox.Show(
+                            $"Ati trimis rezervarea cu succes!\n {CurrentRezervare.DataSosire}\n {CurrentRezervare.DataPlecare}\n {CurrentRezervare.NumarPersoane}\n");
+                        rf.AdaugaRezervare(CurrentRezervare,false);
+                        Session.ChangeOccurred();
+                        Session.CurrentFrame.GoBack();
                     }
-
-                    MessageBox.Show(
-                        $"Ati trimis rezervarea cu succes!\n {CurrentRezervare.DataSosire}\n {CurrentRezervare.DataPlecare}\n {CurrentRezervare.NumarPersoane}\n");
-                    AdministrareRezervari rf = new AdministrareRezervari();
-                    rf.AdaugaRezervare(CurrentRezervare,false);
-                    Session.ChangeOccurred();
-                    Session.CurrentFrame.GoBack();
+                    else
+                    {
+                        if(Session.CurrentUser.Role != UserRole.Customer) MessageBox.Show($"Nu sunteti logat intr-un cont de Customer");
+                        else if(rf.VerificaDisponibilitate(SelectedRoom.Numar,dataSosire, dataPlecare) == false) MessageBox.Show($"Camera e rezervata in acea perioada");
+                    }
                 }
             }
             else

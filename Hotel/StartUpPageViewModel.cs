@@ -105,13 +105,14 @@ public partial class StartUpPageViewModel : INotifyPropertyChanged
         get => _UserMenuVisibility;
         set { _UserMenuVisibility = value; OnPropertyChanged(); }
     }
+    
     private Visibility _AdminMenuVisibility = Visibility.Collapsed;
     public Visibility AdminMenuVisibility
     {
         get => _AdminMenuVisibility;
         set { _AdminMenuVisibility = value; OnPropertyChanged(); }
     }
-    private Visibility _CommonVisibility = Visibility.Visible;
+    private Visibility _CommonVisibility = Visibility.Collapsed;
 
     public Visibility CommonVisibility
     {
@@ -218,8 +219,7 @@ public partial class StartUpPageViewModel : INotifyPropertyChanged
                 AdministrareRezervari ar = new AdministrareRezervari();
                 
                 var toateCamerele = _fisierCamera.IncarcaCamere(); 
-            
-                // Use LINQ to make it cleaner
+                
                 var disponibile = toateCamerele
                     .Where(camera => ar.VerificaDisponibilitate(camera.Numar, sosire, plecare))
                     .ToList();

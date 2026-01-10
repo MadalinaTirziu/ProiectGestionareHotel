@@ -25,6 +25,8 @@ public partial class StartUpPage : Page
         HistoryButton.Click += HistoryButton_Click;
         LogOutButton.Click += LogOutButton_Click;
         CurrentReservationButton.Click += CurrentReservationButton_Click;
+        RoomStatusButton.Click += RoomStatusButton_Click;
+        ReservationStatusButton.Click += ReservationStatusButton_Click;
     }
 
     private void SignInButton_Click(object sender, RoutedEventArgs e)
@@ -51,6 +53,16 @@ public partial class StartUpPage : Page
     private void LogOutButton_Click(object sender, RoutedEventArgs e)
     {
         Session.Logout();
+        
+    }
+
+    private void RoomStatusButton_Click(object sender, RoutedEventArgs e)
+    {
+        
+    }
+
+    private void ReservationStatusButton_Click(object sender, RoutedEventArgs e)
+    {
         
     }
     private void SignInPage_LoginSucceeded(object sender, EventArgs e)
